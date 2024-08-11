@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -15,6 +16,8 @@ import mobile_1.wsmb2024.kongsikereta.Screen.Home
 import mobile_1.wsmb2024.kongsikereta.Screen.Login
 import mobile_1.wsmb2024.kongsikereta.Screen.Profile
 import mobile_1.wsmb2024.kongsikereta.Screen.Register
+import mobile_1.wsmb2024.kongsikereta.Screen.ViewRideDetail
+import mobile_1.wsmb2024.kongsikereta.ViewModel.SelectVM
 
 enum class Navigate {
     Home,
@@ -22,12 +25,12 @@ enum class Navigate {
     Register,
     CreateRide,
     Profile,
-
+    ViewRideDetail,
 }
 
 
 @Composable
- fun Navigation(){
+ fun Navigation(selectVM: SelectVM = viewModel()){
      val auth = Firebase.auth
     val loginuser = auth.currentUser
     val navController = rememberNavController()
@@ -40,7 +43,7 @@ enum class Navigate {
         navController = navController
     ){
         composable(route = Navigate.Home.name){
-            Home(navController)
+            Home(navController, selectVM=selectVM)
         }
         composable(route = Navigate.Login.name){
             Login(navController)
@@ -53,6 +56,9 @@ enum class Navigate {
         }
         composable(route = Navigate.Profile.name){
             Profile(navController)
+        }
+        composable(route = Navigate.ViewRideDetail.name){
+            ViewRideDetail(navController, selectVM=selectVM)
         }
     }
  }

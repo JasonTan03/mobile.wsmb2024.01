@@ -33,6 +33,7 @@ import androidx.compose.material3.TimePickerState
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,6 +47,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import mobile_1.wsmb2024.kongsikereta.Navigate
 import mobile_1.wsmb2024.kongsikereta.ViewModel.DriverVM
 import java.text.SimpleDateFormat
@@ -57,6 +60,13 @@ import java.util.Locale
 @Composable
 fun CreateRide(navController: NavController, create: DriverVM = viewModel()){
     val ctx = LocalContext.current
+    val auth = Firebase.auth
+    val userID = auth.currentUser?.uid
+    if(userID != null){
+        LaunchedEffect(userID) {
+            create.getUserData(userID)
+        }
+    }
     Scaffold(
         topBar = {
             Row(modifier = Modifier

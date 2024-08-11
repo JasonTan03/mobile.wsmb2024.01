@@ -8,5 +8,6 @@ data class Ride(
     val origin: String ="",
     val date: String ="",
     val time: String ="",
-    val fare: Double = 0.0
+    val fare: Double = 0.0,
+    var rideID: String = ""
     )

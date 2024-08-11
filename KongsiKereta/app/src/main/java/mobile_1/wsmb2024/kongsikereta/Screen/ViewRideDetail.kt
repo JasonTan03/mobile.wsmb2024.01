@@ -16,15 +16,29 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import mobile_1.wsmb2024.kongsikereta.Navigate
+import mobile_1.wsmb2024.kongsikereta.ViewModel.DriverVM
+import mobile_1.wsmb2024.kongsikereta.ViewModel.SelectVM
 
 @Composable
-fun Edit(navController: NavController) {
+fun ViewRideDetail(navController: NavController, detail: DriverVM = viewModel(), selectVM: SelectVM) {
+    val auth = Firebase.auth
+    val userID = auth.currentUser?.uid
+    if(userID != null){
+        LaunchedEffect(userID) {
+            detail.getUserData(userID)
+            detail.getRideById(selectVM.rideID)
+        }
+    }
     Scaffold(
         topBar = {
             Row(
@@ -35,7 +49,7 @@ fun Edit(navController: NavController) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
-                Text(text = "Edit profile")
+                Text(text = "Ride Detail")
             }
         },
         bottomBar = {
@@ -61,7 +75,7 @@ fun Edit(navController: NavController) {
     ) {
         Column(modifier = Modifier.padding(it)) {
             Column(modifier = Modifier.padding(24.dp)) {
-
+                Text(text = detail.rideData.destination)
             }
         }
     }

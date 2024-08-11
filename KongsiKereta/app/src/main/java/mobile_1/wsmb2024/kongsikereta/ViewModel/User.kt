@@ -1,6 +1,7 @@
 package mobile_1.wsmb2024.kongsikereta.ViewModel
 
 data class User(
+    val userID:String = "",
     val email: String = "",
     val password: String = "",
     val ic: String = "",
