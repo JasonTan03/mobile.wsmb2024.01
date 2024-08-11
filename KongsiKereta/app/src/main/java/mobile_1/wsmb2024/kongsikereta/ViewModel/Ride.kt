@@ -9,5 +9,6 @@ data class Ride(
     val date: String ="",
     val time: String ="",
     val fare: Double = 0.0,
+    val currentCap: Int = 0,
     var rideID: String = ""
     )

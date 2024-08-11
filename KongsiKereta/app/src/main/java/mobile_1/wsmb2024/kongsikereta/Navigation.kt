@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import mobile_1.wsmb2024.kongsikereta.Screen.CreateRide
+import mobile_1.wsmb2024.kongsikereta.Screen.Edit
 import mobile_1.wsmb2024.kongsikereta.Screen.Home
 import mobile_1.wsmb2024.kongsikereta.Screen.Login
 import mobile_1.wsmb2024.kongsikereta.Screen.Profile
@@ -26,8 +27,8 @@ enum class Navigate {
     CreateRide,
     Profile,
     ViewRideDetail,
+    Edit
 }
-
 
 @Composable
  fun Navigation(selectVM: SelectVM = viewModel()){
@@ -59,6 +60,9 @@ enum class Navigate {
         }
         composable(route = Navigate.ViewRideDetail.name){
             ViewRideDetail(navController, selectVM=selectVM)
+        }
+        composable(route = Navigate.Edit.name){
+            Edit(navController)
         }
     }
  }
